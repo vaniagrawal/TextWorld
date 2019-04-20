@@ -3,82 +3,37 @@ public class PopStar extends Creature {
 
 
     private Player player;
+    private Level.Room popstarCurrentRoom;
 
 
-    private Level.Room popStarRoom;
-
-
-    public PopStar(Level.Room popStarRoom, String name) {
-
-        super(popStarRoom, name);
-
-        this.popStarRoom = popStarRoom;
+    public PopStar(Level.Room popstarCurrentRoom, Player player, String name){
+        super(popstarCurrentRoom, name);
+        this.popstarCurrentRoom = popstarCurrentRoom;
+        this.player = player;
     }
-
-    public void act(Player p) {
-
-
-        this.player = p;
-
-
-        act();
-
-
-    }
-
 
     @Override
-
-
-    public void act() {
-
-
-        Level.Room next = lookForPlayer();
-
-        if (next != null) {
+    public void act(){
+        Level.Room next = getPlayerRoom();
+        if (next != null){
             this.moveToNextRoom(next);
         }
-
-
     }
 
-    private Level.Room lookForPlayer() {
-
-
-        Level.Room next = popStarRoom;
-
-
-        if (player.getCurrentRoom().neighborsCreatures(currentRoom)) {
-
-
-            next = currentRoom;
-
-
+    private Level.Room getPlayerRoom() {
+        Level.Room next = this.currentRoom;
+        if (next.neighborsCreatures(player.getCurrentRoom())) {
+            next = player.getCurrentRoom();
+            return next;
         }
 
-        for (Level.Room popr : popStarRoom.getNeighbors()) {
-
-
-            for (Level.Room pr : player.getCurrentRoom().getNeighbors()) {
-
-
-                if (popr.equals(pr)) {
-
-
-                    next = popr;
-
-
+        for (Level.Room popstarRoom : popstarCurrentRoom.getNeighbors()){
+            for (Level.Room playerRoom : player.getCurrentRoom().getNeighbors()){
+                if (popstarRoom.equals(playerRoom)){
+                    next = popstarRoom;
                 }
-
-
             }
-
-
         }
-
-
         return next;
-
-
     }
 }

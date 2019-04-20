@@ -3,85 +3,33 @@ public class Wumpus extends Creature {
 
 
     private Player player;
-    private Level.Room room;
+    private Level.Room wumpusCurrentRoom;
 
-
-    public Wumpus(Level.Room wumpusRoom, String name) {
-
-
-        super(wumpusRoom, name);
-
-
-        this.room = wumpusRoom;
-
-
+    public Wumpus(Level.Room wumpusCurrentRoom, Player player, String name){
+        super(wumpusCurrentRoom, name);
+        this.wumpusCurrentRoom = wumpusCurrentRoom;
+        this.player = player;
     }
-
-
-    public void act(Player p) {
-
-
-        this.player = p;
-
-
-        act();
-
-
-    }
-
 
     @Override
 
-
-    public void act() {
-
-
-        Level.Room next = avoidPlayer();
-
-
-        if (next != null) {
-
-
-            this.moveToNextRoom(next);
-
-
+    public void act(){
+        Level.Room next = getNextRoom();
+        if (next != null){
+            moveToNextRoom(next);
         }
-
-
     }
 
-
-    private Level.Room avoidPlayer() {
-
-
+    private Level.Room getNextRoom() {
         Level.Room playerRoom = player.getCurrentRoom();
+        Level.Room next = wumpusCurrentRoom.getRandomNeighbor();
 
-
-        Level.Room next = room.getRandomNeighbor();
-        ;
-
-
-        if (playerRoom.neighborsCreatures(room)) {
-
-
-            if (next.equals(playerRoom)) {
-
-
-                room.neighbors.remove(playerRoom);
-
-
-                next = room.getRandomNeighbor();
-
-
+        for (Level.Room room : player.getCurrentRoom().getNeighbors()) {
+            while (next.equals(room) || next.equals(room)) {
+                next = wumpusCurrentRoom.getRandomNeighbor();
             }
-
-
         }
-
 
         return next;
-
-
     }
-
 }

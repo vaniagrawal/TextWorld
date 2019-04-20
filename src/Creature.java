@@ -5,7 +5,7 @@ public abstract class Creature {
     protected Level.Room currentRoom;
 
 
-    String name;
+    String creatureName;
 
 
 
@@ -15,7 +15,7 @@ public abstract class Creature {
         this.currentRoom = room;
 
 
-        this.name = name;
+        this.creatureName = name;
 
     }
 
@@ -39,10 +39,10 @@ public abstract class Creature {
 
     }
 
-    public String getName() {
+    public String getCreatureName() {
 
 
-        return name;
+        return creatureName;
 
 
     }
@@ -51,7 +51,7 @@ public abstract class Creature {
     public void setNames(String names) {
 
 
-        this.name = names;
+        this.creatureName = names;
 
 
     }

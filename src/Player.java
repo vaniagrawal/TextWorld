@@ -35,5 +35,25 @@ public class Player {
         currentRoom = newRoom;
 
     }
+    public boolean moveToRoom (String name){
+        Level.Room neighbor = currentRoom.getNeighbor(name);
+        if (neighbor != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean takeItem(String itemName) {
+        Item i = this.currentRoom.removeItem(itemName);
+        this.addItem(i);
+        return (i.equals(null));
+    }
+
+    public boolean dropItem(String itemName) {
+        this.removeItem(itemName);
+        this.currentRoom.addItem(itemName);
+        return true;
+    }
+
 
 }
